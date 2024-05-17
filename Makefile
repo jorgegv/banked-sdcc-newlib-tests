@@ -9,10 +9,12 @@
 
 # sdcc, newlib
 CFLAGS = --list -s -m -compiler=sdcc -clib=sdcc_iy --c-code-in-asm -pragma-include zpragma.inc
+#CFLAGS = --list -s -m -compiler=sdcc -clib=sdcc_iy --c-code-in-asm
 
 
-#OBJS = bcall.o main.o bank6.o
-OBJS = zx_banked_call.o main.o bank6.o
+OBJS = bcall.o main.o bank1.o bank3.o bank4.o bank6.o bank7.o
+#OBJS = zx_banked_call.o main.o bank6.o
+#OBJS = main.o bank6.o
 
 %.o: %.c
 	zcc +zx -vn -c $(CFLAGS) $<
@@ -30,3 +32,5 @@ clean:
 
 run:
 	fuse --machine 128 banked.tap
+
+build: clean all

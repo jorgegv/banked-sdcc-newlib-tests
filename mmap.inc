@@ -30,6 +30,12 @@ section code_crt_start
 
 ENDIF
 
+;; load banks if any
+IF !DEFINED_CRT_DISABLELOADER
+  call   loadbanks
+ENDIF
+
+;; regular memory map
 section code_crt_init
 section code_crt_main
 section code_crt_exit
@@ -169,6 +175,17 @@ section data_user
 
 SECTION DATA_END
 
+;; this must be at the end of the memory map
+;; can be before BSS
+IF !DEFINED_CRT_DISABLELOADER
+loadbanks:
+  IF DEFINED_CRT_PLUS3LOADER
+      INCLUDE "zx_p3loader.asm"
+  ELSE
+      INCLUDE "zx_tapeloader.asm"
+  ENDIF
+ENDIF
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 SECTION BSS
@@ -233,3 +250,104 @@ org 0
 ENDIF
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Define Memory Banks
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+    IFNDEF CRT_ORG_BANK_0
+        defc CRT_ORG_BANK_0 = 0xc000
+    ENDIF
+
+    IFNDEF CRT_ORG_BANK_1
+        defc CRT_ORG_BANK_1 = 0xc000
+    ENDIF
+
+    IFNDEF CRT_ORG_BANK_2
+        defc CRT_ORG_BANK_2 = 0xc000
+    ENDIF
+
+    IFNDEF CRT_ORG_BANK_3
+        defc CRT_ORG_BANK_3 = 0xc000
+    ENDIF
+
+    IFNDEF CRT_ORG_BANK_4
+        defc CRT_ORG_BANK_4 = 0xc000
+    ENDIF
+
+    IFNDEF CRT_ORG_BANK_5
+        defc CRT_ORG_BANK_5 = 0xc000
+    ENDIF
+
+    IFNDEF CRT_ORG_BANK_6
+        defc CRT_ORG_BANK_6 = 0xc000
+    ENDIF
+
+    IFNDEF CRT_ORG_BANK_7
+        defc CRT_ORG_BANK_7 = 0xc000
+    ENDIF
+
+
+    SECTION BANK_0
+    org 0x000000 + CRT_ORG_BANK_0
+    SECTION CODE_0
+    SECTION RODATA_0
+    SECTION DATA_0
+    SECTION BSS_0
+    SECTION BANK_0_END
+
+    SECTION BANK_1
+    org 0x010000 + CRT_ORG_BANK_1
+    SECTION CODE_1
+    SECTION RODATA_1
+    SECTION DATA_1
+    SECTION BSS_1
+    SECTION BANK_1_END
+
+    SECTION BANK_2
+    org 0x020000 + CRT_ORG_BANK_2
+    SECTION CODE_2
+    SECTION RODATA_2
+    SECTION DATA_2
+    SECTION BSS_2
+    SECTION BANK_2_END
+
+    SECTION BANK_3
+    org 0x030000+ CRT_ORG_BANK_3
+    SECTION CODE_3
+    SECTION RODATA_3
+    SECTION DATA_3
+    SECTION BSS_3
+    SECTION BANK_3_END
+
+    SECTION BANK_4
+    org 0x040000 + CRT_ORG_BANK_4
+    SECTION CODE_4
+    SECTION RODATA_4
+    SECTION DATA_4
+    SECTION BSS_4
+    SECTION BANK_4_END
+
+    SECTION BANK_5
+    org 0x050000 + CRT_ORG_BANK_5
+    SECTION CODE_5
+    SECTION RODATA_5
+    SECTION DATA_5
+    SECTION BSS_5
+    SECTION BANK_5_END
+
+    SECTION BANK_6
+    org 0x060000 + CRT_ORG_BANK_6
+    SECTION CODE_6
+    SECTION RODATA_6
+    SECTION DATA_6
+    SECTION BSS_6
+    SECTION BANK_6_END
+
+    SECTION BANK_7
+    org 0x070000 + CRT_ORG_BANK_7
+    SECTION CODE_7
+    SECTION RODATA_7
+    SECTION DATA_7
+    SECTION BSS_7
+    SECTION BANK_7_END

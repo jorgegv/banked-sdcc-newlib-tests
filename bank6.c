@@ -1,5 +1,5 @@
 #pragma bank 6
 
-int banked_function( void ) __banked {
-    return 0x1972;
+int banked_function6( void ) __banked {
+    return 0x1976;
 }
