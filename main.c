@@ -15,5 +15,5 @@ void main( void ) {
     printf( "** Value from bank 4: 0x%04x\n", banked_function4() );
     printf( "** Value from bank 6: 0x%04x\n", banked_function6() );
     printf( "** Value from bank 7: 0x%04x\n", banked_function7() );
-    while ( 1 ) ;
+//    while ( 1 ) ;
 }

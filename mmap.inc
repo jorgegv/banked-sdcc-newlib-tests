@@ -30,10 +30,26 @@ section code_crt_start
 
 ENDIF
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Minimal CRT for banked loading in RAGE1
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; load banks if any
 IF !DEFINED_CRT_DISABLELOADER
   call   loadbanks
 ENDIF
+
+;; CRT BY JGV
+	ld sp, REGISTER_SP
+	call _main
+	ld a,2
+	out (0xfe),a
+	di
+	halt
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; End of minimal CRT
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; regular memory map
 section code_crt_init
