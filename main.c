@@ -6,7 +6,7 @@ extern int banked_function1( void ) __banked;
 extern int banked_function3( void ) __banked;
 extern int banked_function4( void ) __banked;
 extern int banked_function6( void ) __banked;
-extern int banked_function7( int a ) __banked;
+extern int banked_function7( int a ) __banked __z88dk_fastcall;
 
 void main( void ) {
     printf( "Hello world from main bank!\n" );
